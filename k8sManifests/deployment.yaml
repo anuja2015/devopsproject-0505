@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myspringbootapp
+  labels: 
+    app: springbootapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels: 
+      app: springbootapp
+  template:
+    metadata:
+      labels:
+        app: springbootapp
+    spec:
+      containers:
+      - name: sample-sprintboot-app
+        image: armdevu/sample-spring-boot-app:15
+        ports:
+        - containerPort: 3010
+      

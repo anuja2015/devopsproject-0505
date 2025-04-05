@@ -1,0 +1,19 @@
+1. argocd login arocd-server
+FATA[0020] dial tcp: lookup arocd-server on 10.255.255.254:53: read udp 10.255.255.254:37647->10.255.255.254:53: i/o timeout
+
+Solution : argocd login 74.179.255.111
+WARNING: server certificate had error: tls: failed to verify certificate: x509: cannot validate certificate for 74.179.255.111 because it doesn't contain any IP SANs. Proceed insecurely (y/n)? y
+Username: admin
+Password:
+'admin:login' logged in successfully
+Context '74.179.255.111' updated
+$ argocd cluster add argocd-k8s
+WARNING: This will create a service account `argocd-manager` on the cluster referenced by context `argocd-k8s` with full cluster level privileges. Do you want to continue [y/N]? y
+INFO[0004] ServiceAccount "argocd-manager" already exists in namespace "kube-system"
+INFO[0005] ClusterRole "argocd-manager-role" updated
+INFO[0005] ClusterRoleBinding "argocd-manager-role-binding" updated
+Cluster 'https://argocd-k8s-zv553ba0.hcp.eastus.azmk8s.io:443' added
+armdevu@IBM-8RWZR34:~$ argocd cluster list
+SERVER                                                NAME        VERSION  STATUS      MESSAGE
+           PROJECT
+https://argocd-k8s-zv553ba0.hcp.eastus.azmk8s.io:443  argocd-k8s  1.30     Successful

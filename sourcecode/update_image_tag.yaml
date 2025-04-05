@@ -1,0 +1,27 @@
+---
+- name: Update Image Tag in Kubernetes Deployment YAML
+  hosts: localhost
+  gather_facts: no
+  vars:
+    build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
+    yaml_file: "../k8sManifests/deployment.yaml"
+  
+  tasks:
+    - name: Read the deployment.yaml file
+      slurp:
+        src: "{{ yaml_file }}"
+      register: yaml_content
+
+    - name: Update the image tag with the new build number
+      replace:
+        path: "{{ yaml_file }}"
+        regexp: 'image: armdevu/sample-spring-boot-app:\d+'
+        replace: 'image: armdevu/sample-spring-boot-app:{{ build_number }}'
+
+    - name: Display updated file content
+      command: cat "{{ yaml_file }}"
+      register: updated_content
+      changed_when: false
+
+    - debug:
+        msg: "{{ updated_content.stdout_lines }}"
