@@ -82,8 +82,8 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'github-credentials', variable: 'GITHUB_TOKEN')]) {
                     sh '''
-                        git config user.email "dec2024devops@outlook.com"
-                        git config user.name "dec2024devops"
+                        git config user.email "devops0305@outlook.com"
+                        git config user.name "devops0305"
                         ## buildNumber=$BUILD_ID
                         sed -i "s|image:.*|image: ${DOCKER_IMAGE}|g" k8sManifests/deployment.yaml
                         git add k8sManifests/deployment.yaml
