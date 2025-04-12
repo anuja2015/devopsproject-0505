@@ -1,8 +1,8 @@
 # Start with Maven image with JDK 17
-FROM openjdk:17-slim
+FROM openjdk:21-slim
 
 #Set env variables for Maven version
-ENV MAVEN_VERSION=3.8.8
+ENV MAVEN_VERSION=3.9.9
 ENV MAVEN_HOME=/opt/maven
 ENV PATH=$MAVEN_HOME/bin:$PATH
 
