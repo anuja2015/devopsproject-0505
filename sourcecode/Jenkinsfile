@@ -21,7 +21,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo 'Checking out code from the master branch...'
-                git branch: 'master', url: 'https://github.com/anuja2015/CICDwithArgo.git'
+                git branch: 'master', url: 'https://github.com/anuja2015/devopsproject-0505.git'
             }
         }
         stage('Build') {
@@ -34,10 +34,10 @@ pipeline {
         }
         stage('Static Code Analysis') {
             environment {
-                SONAR_URL = "http://20.51.143.58:9000"
+                SONAR_URL = "http://20.55.25.186:9000"
             }
             steps {
-                withCredentials([string(credentialsId: 'sonar-credentials', variable: 'SONAR_AUTH_TOKEN')]) {
+                withCredentials([string(credentialsId: 'sonar-cred', variable: 'SONAR_AUTH_TOKEN')]) {
                 dir('sourcecode') {
                   sh 'mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
                 }
@@ -68,7 +68,7 @@ pipeline {
                     // Push the image to Docker Hub
                     //sh "docker push ${DOCKER_REPOSITORY}:${env.BUILD_ID}"
                         def dockerImage = docker.image("${DOCKER_IMAGE}")
-                        docker.withRegistry('https://index.docker.io/v1/', "docker-credentials") {
+                        docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
                         dockerImage.push()
             }
                 }
